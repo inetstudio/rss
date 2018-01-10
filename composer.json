@@ -1,0 +1,27 @@
+{
+    "name": "inetstudio/rss",
+    "description": "Package for rss",
+    "homepage": "https://github.com/inetstudio/rss",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Konstantin Bukin",
+        "email": "bukin@inetstudio.ru"
+      }
+    ],
+    "require": {
+      "roumen/feed": "^2.11"
+    },
+    "autoload": {
+      "psr-4": {
+        "InetStudio\\RSS\\": "src/"
+      }
+    },
+    "extra": {
+      "laravel": {
+        "providers": [
+          "InetStudio\\RSS\\Providers\\RSSServiceProvider"
+        ]
+      }
+    }
+}
