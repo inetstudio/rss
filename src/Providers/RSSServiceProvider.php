@@ -3,6 +3,7 @@
 namespace InetStudio\RSS\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use InetStudio\RSS\Console\Commands\SetupCommand;
 
 class RSSServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,7 @@ class RSSServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->registerConsoleCommands();
         $this->registerPublishes();
         $this->registerRoutes();
         $this->registerViews();
@@ -25,6 +27,20 @@ class RSSServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+    }
+
+    /**
+     * Регистрация команд.
+     *
+     * @return void
+     */
+    protected function registerConsoleCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                SetupCommand::class,
+            ]);
+        }
     }
 
     /**

@@ -4,6 +4,7 @@ return [
 
     'yandex' => [
         'feed' => [
+            'limit' => 200,
             'title' => '',
             'description' => '',
             'language' => 'ru',

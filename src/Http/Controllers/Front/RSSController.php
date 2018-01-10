@@ -30,7 +30,11 @@ class RSSController extends Controller
                 $items = array_merge($items, $this->getItems($source));
             }
 
-            $items = collect($items)->sortByDesc('publish_date')->take(500);
+            $items = collect($items)->sortByDesc('publish_date');
+
+            if (isset($config['feed']['limit'])) {
+                $items = $items->take($config['feed']['limit']);
+            }
 
             $feed->title = (isset($config['feed']['title'])) ? $config['feed']['title'] : config('app.name');
             $feed->description = (isset($config['feed']['description'])) ? $config['feed']['title'] : '';
