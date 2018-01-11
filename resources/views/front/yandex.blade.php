@@ -7,7 +7,7 @@
 >
 	<channel>
 		<title>{!! $channel['title'] !!}</title>
-		<link>{{ $channel['rssLink'] }}</link>
+		<link>{{ $channel['link'] }}</link>
 		<description>{!! $channel['description'] !!}></description>
 		<language>{{ $channel['lang'] }}</language>
 

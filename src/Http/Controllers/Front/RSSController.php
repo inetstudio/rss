@@ -40,9 +40,7 @@ class RSSController extends Controller
 
             $feed->title = (isset($config['feed']['title'])) ? $config['feed']['title'] : config('app.name');
             $feed->description = (isset($config['feed']['description'])) ? $config['feed']['title'] : '';
-            $feed->link = route('front.rss.feed', [
-                'type' => $type,
-            ]);
+            $feed->link = $request->fullUrl();
 
             $feed->setDateFormat((isset($config['feed']['dateformat'])) ? $config['feed']['dateformat'] : 'datetime');
             $feed->pubdate = ($items->count() > 0) ? $items->first()['pubdate'] : time();
