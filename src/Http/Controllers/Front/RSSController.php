@@ -3,6 +3,7 @@
 namespace InetStudio\RSS\Http\Controllers\Front;
 
 use Roumen\Feed\Feed;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 /**
@@ -12,7 +13,7 @@ use App\Http\Controllers\Controller;
  */
 class RSSController extends Controller
 {
-    public function feed(string $type = '')
+    public function feed(Request $request, string $type = '')
     {
         $config = config('rss.'.$type);
 
@@ -20,9 +21,12 @@ class RSSController extends Controller
             return '';
         }
 
+        $limit = ($request->filled('limit')) ? $request->get('limit') : ((isset($config['feed']['limit'])) ? $config['feed']['limit'] : 0);
+        $offset = ($request->filled('page')) ? ($request->get('page') - 1)*$limit : 0;
+
         $feed = new Feed;
 
-        $feed->setCache(60, 'feed_'.$type);
+        $feed->setCache(60, 'feed_'.$type.'_'.$offset.'_'.$limit);
 
         if (! $feed->isCached()) {
             $items = [];
@@ -30,11 +34,9 @@ class RSSController extends Controller
                 $items = array_merge($items, $this->getItems($source));
             }
 
-            $items = collect($items)->sortByDesc('publish_date');
+            $items = collect($items)->sortByDesc('pubdate');
 
-            if (isset($config['feed']['limit'])) {
-                $items = $items->take($config['feed']['limit']);
-            }
+            $items = ($limit) ? $items->slice($offset, $limit) : $items->slice($offset);
 
             $feed->title = (isset($config['feed']['title'])) ? $config['feed']['title'] : config('app.name');
             $feed->description = (isset($config['feed']['description'])) ? $config['feed']['title'] : '';
@@ -50,7 +52,7 @@ class RSSController extends Controller
 
             foreach ($items as $item)
             {
-                $feed->add($item['title'], $item['author'], $item['link'], $item['pubdate'], $item['description'], $item['content']);
+                $feed->add($item['title'], $item['author'], $item['link'], $item['pubdate'], $this->fixBadText($item['description']), $this->fixBadText($item['content']));
             }
         }
 
@@ -65,6 +67,13 @@ class RSSController extends Controller
         return $feed->render('rss');
     }
 
+    /**
+     * Получаем материалы.
+     *
+     * @param $source
+     *
+     * @return mixed
+     */
     private function getItems($source)
     {
         $resolver = array_wrap($source);
@@ -74,5 +83,17 @@ class RSSController extends Controller
         );
 
         return $items;
+    }
+
+    /**
+     * Вырезаем из текста битые символы.
+     *
+     * @param $text
+     *
+     * @return null|string|string[]
+     */
+    private function fixBadText($text)
+    {
+        return preg_replace('/[\x00-\x1F\x7F]/', '', $text);
     }
 }
