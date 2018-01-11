@@ -39,7 +39,7 @@ class RSSController extends Controller
             $items = ($limit) ? $items->slice($offset, $limit) : $items->slice($offset);
 
             $feed->title = (isset($config['feed']['title'])) ? $config['feed']['title'] : config('app.name');
-            $feed->description = (isset($config['feed']['description'])) ? $config['feed']['title'] : '';
+            $feed->description = (isset($config['feed']['description'])) ? $config['feed']['description'] : '';
             $feed->link = $request->fullUrl();
 
             $feed->setDateFormat((isset($config['feed']['dateformat'])) ? $config['feed']['dateformat'] : 'datetime');
