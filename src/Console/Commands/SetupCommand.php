@@ -3,7 +3,12 @@
 namespace InetStudio\RSS\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Process\Process;
 
+/**
+ * Class SetupCommand
+ * @package InetStudio\RSS\Console\Commands
+ */
 class SetupCommand extends Command
 {
     /**
@@ -41,8 +46,19 @@ class SetupCommand extends Command
                 continue;
             }
 
+            $params = (isset($info['params'])) ? $info['params'] : [];
+
             $this->line(PHP_EOL.$info['description']);
-            $this->call($info['command'], $info['params']);
+
+            switch ($info['type']) {
+                case 'artisan':
+                    $this->call($info['command'], $params);
+                    break;
+                case 'cli':
+                    $process = new Process($info['command']);
+                    $process->run();
+                    break;
+            }
         }
     }
 
@@ -55,12 +71,18 @@ class SetupCommand extends Command
     {
         $this->calls = [
             [
+                'type' => 'artisan',
                 'description' => 'Publish config',
                 'command' => 'vendor:publish',
                 'params' => [
                     '--provider' => 'InetStudio\RSS\Providers\RSSServiceProvider',
                     '--tag' => 'config',
                 ],
+            ],
+            [
+                'type' => 'cli',
+                'description' => 'Composer dump',
+                'command' => 'composer dump-autoload',
             ],
         ];
     }
