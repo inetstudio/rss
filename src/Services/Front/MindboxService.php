@@ -30,9 +30,9 @@ class MindboxService implements MindboxServiceContract
             ->addSelect(['parent_id', 'title'])
             ->get();
 
-        $items = [];
+        $items = collect([]);
         foreach ($config['sources'] as $source) {
-            $items = array_merge($items, $this->getItems($source));
+            $items = $items->merge($this->getItems($source));
         }
 
         return [
