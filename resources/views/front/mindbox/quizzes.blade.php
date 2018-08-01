@@ -13,6 +13,7 @@
                 </offer>
                 @foreach ($quiz['results'] as $result)
                     <offer id="{{ $result['id'] }}" group_id="{{ $quiz['id'] }}" available="true">
+                        <picture>{{ $result['img']['src'] }}</picture>
                         <name>{{ $result['title'] }}</name>
                         <description><![CDATA[{!! $result['result'] !!}]]></description>
                     </offer>
