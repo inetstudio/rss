@@ -25,12 +25,20 @@ class MindboxService implements MindboxServiceContract
     {
         $config = config('rss.mindbox_materials');
 
+        $categories = app()->make('InetStudio\Categories\Contracts\Repositories\CategoriesRepositoryContract')
+            ->getAllItems(true)
+            ->addSelect(['parent_id', 'title'])
+            ->get();
+
         $items = [];
         foreach ($config['sources'] as $source) {
             $items = array_merge($items, $this->getItems($source));
-
-            dd($items);
         }
+
+        return [
+            'categories' => $categories,
+            'materials' => $items,
+        ];
     }
 
     public function getQuizzesData()

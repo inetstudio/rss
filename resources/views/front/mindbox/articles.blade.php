@@ -1,30 +1,30 @@
 <yml_catalog date="2018-05-28 19:12">
     <shop>
-        <name>Skin.ru</name>
-        <company>Skin.ru</company>
-        <url>http://skin.ru/</url>
+        <name>{{ config('app.name') }}</name>
+        <company>{{ config('app.name') }}</company>
+        <url>{{ url('/') }}</url>
         <email>bukin@inetstudio.ru</email>
         <categories>
-            <category id="1" >Материалы</category>
-            <category id="15" parentId="1">СТАРЕЮЩАЯ</category>
-            <category id="16" parentId="15">Жирная</category>
-            <category id="17" parentId="1">Чувствительная </category>
+            @foreach ($categories as $category)
+                <category id="{{ $category->id }}" {{ $category->parent_id ? 'parentId="'.$category->parent_id.'"' : '' }}>{{ $category->title }}</category>
+            @endforeach
         </categories>
         <offers>
-            <offer id="123123" available="true">
-                <categoryId>15</categoryId>
-                <url>
-                    https://skin.ru/article/kak-uhazhivat-za-kozhej-s-atopicheskim-dermatitom/
-                </url>
-                <picture>
-                    https://static-skin.ru/storage/articles//9212/conversions/preview_3_2.jpg
-                </picture>
-                <name>Как ухаживать за кожей с атопическим дерматитом</name>
-                <description> Эта статья пригодится всем, кто уже побывал на приеме у дерматолога, получил диагноз «атопический дерматит», но не до конца понял, как ухаживать за своей кожей. Попробуем объяснить.
-                </description>
-                <param name="tags">ЧУВСТВИТЕЛЬНАЯ|КОЖА ГИПЕРЧУВСТВИТЕЛЬНАЯ|КОЖАПРОБЛЕМЫ КОЖИ</param>
-                <param name="type">Статья</param>
-            </offer>
+            @foreach ($materials as $material)
+                <offer id="{{ $material['id'] }}" available="{{ $material['available'] }}">
+                    <categories>
+                        @foreach ($material['categories'] as $categoryID)
+                            <categoryId>{{ $categoryID }}</categoryId>
+                        @endforeach
+                    </categories>
+                    <url>{{ $material['url'] }}</url>
+                    <picture>{{ $material['picture'] }}</picture>
+                    <name>{{ $material['name'] }}</name>
+                    <description>{{ $material['description'] }}</description>
+                    <param name="tags">{{ $material['tags'] }}</param>
+                    <param name="type">{{ $material['type'] }}</param>
+                </offer>
+            @endforeach
         </offers>
     </shop>
 </yml_catalog>

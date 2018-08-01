@@ -1,6 +1,6 @@
 <?php
 
-namespace InetStudio\Articles\Http\Responses\Back\Articles;
+namespace InetStudio\RSS\Http\Responses;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
