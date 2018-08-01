@@ -3,7 +3,7 @@
 namespace InetStudio\RSS\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use InetStudio\RSS\Contracts\Responses\MindboxResponseContract;
+use InetStudio\RSS\Contracts\Http\Responses\MindboxResponseContract;
 use InetStudio\RSS\Contracts\Http\Controllers\Front\MindboxControllerContract;
 
 /**

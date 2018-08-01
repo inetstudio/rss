@@ -1,6 +1,6 @@
 <?php
 
-namespace InetStudio\RSS\Contracts\Responses;
+namespace InetStudio\RSS\Contracts\Http\Responses;
 
 /**
  * Interface MindboxResponseContract.

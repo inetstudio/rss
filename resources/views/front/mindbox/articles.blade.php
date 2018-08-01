@@ -1,4 +1,4 @@
-<yml_catalog date="2018-05-28 19:12">
+<yml_catalog date="{{ \Carbon\Carbon::now()->toDateTimeString() }}">
     <shop>
         <name>{{ config('app.name') }}</name>
         <company>{{ config('app.name') }}</company>
@@ -6,7 +6,7 @@
         <email>bukin@inetstudio.ru</email>
         <categories>
             @foreach ($categories as $category)
-                <category id="{{ $category->id }}" {{ $category->parent_id ? 'parentId="'.$category->parent_id.'"' : '' }}>{{ $category->title }}</category>
+                <category id="{{ $category->id }}" {!! $category->parent_id ? 'parentId="'.$category->parent_id.'"' : '' !!}>{{ $category->title }}</category>
             @endforeach
         </categories>
         <offers>

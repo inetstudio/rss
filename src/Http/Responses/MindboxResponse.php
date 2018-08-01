@@ -5,7 +5,7 @@ namespace InetStudio\RSS\Http\Responses;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\Support\Responsable;
-use InetStudio\RSS\Contracts\Responses\MindboxResponseContract;
+use InetStudio\RSS\Contracts\Http\Responses\MindboxResponseContract;
 
 /**
  * Class MindboxResponse.
@@ -27,8 +27,9 @@ class MindboxResponse implements MindboxResponseContract, Responsable
      *
      * @param array $data
      */
-    public function __construct(array $data)
+    public function __construct(string $view, array $data)
     {
+        $this->view = $view;
         $this->data = $data;
     }
 
