@@ -3,8 +3,10 @@
 namespace InetStudio\RSS\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use InetStudio\RSS\Console\Commands\SetupCommand;
 
+/**
+ * Class RSSServiceProvider.
+ */
 class RSSServiceProvider extends ServiceProvider
 {
     /**
@@ -21,15 +23,6 @@ class RSSServiceProvider extends ServiceProvider
     }
 
     /**
-     * Регистрация привязки в контейнере.
-     *
-     * @return void
-     */
-    public function register(): void
-    {
-    }
-
-    /**
      * Регистрация команд.
      *
      * @return void
@@ -38,7 +31,7 @@ class RSSServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                SetupCommand::class,
+                'InetStudio\RSS\Console\Commands\SetupCommand',
             ]);
         }
     }

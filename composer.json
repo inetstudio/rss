@@ -20,6 +20,7 @@
     "extra": {
       "laravel": {
         "providers": [
+          "InetStudio\\RSS\\Providers\\RSSBindingsServiceProvider",
           "InetStudio\\RSS\\Providers\\RSSServiceProvider"
         ]
       }

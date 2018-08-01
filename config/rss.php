@@ -9,7 +9,7 @@ return [
             'description' => '',
             'language' => 'ru',
             'dateformat' => 'datetime',
-            'view' => 'admin.module.rss::front.yandex',
+            'view' => 'admin.module.rss::front.rss.yandex',
             'type' => 'text/xml',
             'format' => 'rss',
         ],
