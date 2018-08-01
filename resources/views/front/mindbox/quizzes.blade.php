@@ -1,23 +1,23 @@
-<yml_catalog date="2018-05-28 19:12">
+<yml_catalog date="{{ \Carbon\Carbon::now()->toDateTimeString() }}">
     <shop>
-        <name>Skin.ru Тесты</name>
-        <company>Skin.ru</company>
-        <url>http://skin.ru/</url>
+        <name>{{ config('app.name') }}</name>
+        <company>{{ config('app.name') }}</company>
+        <url>{{ url('/') }}</url>
         <email>bukin@inetstudio.ru</email>
         <offers>
-            <offer id="1" available="true">
-                <picture>Картинка к тесту</picture>
-                <name>Название теста</name>
-                <description><![CDATA[ Описание теста.]]></description>
-            </offer>
-            <offer id="101" group_id="1" available="true">
-                <name>Заголовок варианта 1 результата теста</name>
-                <description><![CDATA[ Результат теста Вариант 1.]]></description>
-            </offer>
-            <offer id="102" group_id="1" available="true">
-                <name>Заголовок варианта 2</name>
-                <description><![CDATA[ Результат теста Вариант 2.]]></description>
-            </offer>
+            @foreach ($quizzes as $quiz)
+                <offer id="{{ $quiz['id'] }}" available="true">
+                    <picture>{{ $quiz['img']['src'] }}</picture>
+                    <name>{{ $quiz['title'] }}</name>
+                    <description><![CDATA[{!! $quiz['description'] !!}]]></description>
+                </offer>
+                @foreach ($quiz['results'] as $result)
+                    <offer id="{{ $result['id'] }}" group_id="{{ $quiz['id'] }}" available="true">
+                        <name>{{ $result['title'] }}</name>
+                        <description><![CDATA[{!! $result['result'] !!}]]></description>
+                    </offer>
+                @endforeach
+            @endforeach
         </offers>
     </shop>
 </yml_catalog>

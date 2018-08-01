@@ -10,18 +10,11 @@ use InetStudio\RSS\Contracts\Services\Front\MindboxServiceContract;
 class MindboxService implements MindboxServiceContract
 {
     /**
-     * Используемые сервисы.
+     * Отдаем данные для ленты статей.
      *
-     * @var array
+     * @return array
      */
-    public $services = [];
-
-    public function __construct()
-    {
-
-    }
-
-    public function getArticlesData()
+    public function getArticlesData(): array
     {
         $config = config('rss.mindbox_materials');
 
@@ -41,9 +34,23 @@ class MindboxService implements MindboxServiceContract
         ];
     }
 
-    public function getQuizzesData()
+    /**
+     * Отдаем данные для ленты тестов.
+     *
+     * @return array
+     */
+    public function getQuizzesData(): array
     {
+        $config = config('rss.mindbox_quizzes');
 
+        $items = collect([]);
+        foreach ($config['sources'] as $source) {
+            $items = $items->merge($this->getItems($source));
+        }
+
+        return [
+            'quizzes' => $items,
+        ];
     }
 
     /**
