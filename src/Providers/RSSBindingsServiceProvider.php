@@ -3,33 +3,32 @@
 namespace InetStudio\RSS\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Foundation\Application;
 
 /**
  * Class RSSBindingsServiceProvider.
  */
 class RSSBindingsServiceProvider extends ServiceProvider
 {
+    /**
+    * @var  bool
+    */
     protected $defer = true;
 
-    public $bindings = [];
-
     /**
-     * RSSBindingsServiceProvider constructor.
-     *
-     * @param Application $app
-     */
-    public function __construct(Application $app)
-    {
-        parent::__construct($app);
-
-        $this->bindings = getPackageBindings(__DIR__.'/../Contracts');
-    }
+    * @var  array
+    */
+    public $bindings = [
+        'InetStudio\RSS\Contracts\Http\Controllers\Front\MindboxControllerContract' => 'InetStudio\RSS\Http\Controllers\Front\MindboxController',
+        'InetStudio\RSS\Contracts\Http\Controllers\Front\RSSControllerContract' => 'InetStudio\RSS\Http\Controllers\Front\RSSController',
+        'InetStudio\RSS\Contracts\Http\Responses\MindboxResponseContract' => 'InetStudio\RSS\Http\Responses\MindboxResponse',
+        'InetStudio\RSS\Contracts\Services\Front\MindboxServiceContract' => 'InetStudio\RSS\Services\Front\MindboxService',
+        'InetStudio\RSS\Contracts\Services\Front\RSSServiceContract' => 'InetStudio\RSS\Services\Front\RSSService',
+    ];
 
     /**
      * Получить сервисы от провайдера.
      *
-     * @return array
+     * @return  array
      */
     public function provides()
     {
