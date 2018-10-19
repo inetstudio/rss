@@ -10,7 +10,7 @@
       }
     ],
     "require": {
-      "roumen/feed": "^2.12"
+      "laravelium/feed": "3.0.*"
     },
     "autoload": {
       "psr-4": {
