@@ -19,9 +19,10 @@ class MindboxService implements MindboxServiceContract
         $config = config('rss.mindbox_materials');
 
         $categories = app()->make('InetStudio\Categories\Contracts\Repositories\CategoriesRepositoryContract')
-            ->getAllItems(true)
-            ->addSelect(['parent_id', 'title'])
-            ->get();
+            ->getAllItems([
+                'columns' => ['created_at', 'updated_at'],
+                'order' => ['created_at' => 'desc'],
+            ]);
 
         $items = collect([]);
         foreach ($config['sources'] as $source) {

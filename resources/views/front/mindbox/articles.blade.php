@@ -6,7 +6,7 @@
         <email>bukin@inetstudio.ru</email>
         <categories>
             @foreach ($categories as $category)
-                <category id="{{ $category->id }}" {!! $category->parent_id ? 'parentId="'.$category->parent_id.'"' : '' !!}>{{ $category->title }}</category>
+                <category id="{{ $category['id'] }}" {!! $category['parent_id'] ? 'parentId="'.$category['parent_id'].'"' : '' !!}>{{ $category['title'] }}</category>
             @endforeach
         </categories>
         <offers>
