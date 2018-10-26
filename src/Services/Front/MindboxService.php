@@ -36,6 +36,25 @@ class MindboxService implements MindboxServiceContract
     }
 
     /**
+     * Отдаем данные для ленты продуктов.
+     *
+     * @return array
+     */
+    public function getProductsData(): array
+    {
+        $config = config('rss.mindbox_products');
+
+        $items = collect([]);
+        foreach ($config['sources'] as $source) {
+            $items = $items->merge($this->getItems($source));
+        }
+
+        return [
+            'products' => $items,
+        ];
+    }
+
+    /**
      * Отдаем данные для ленты тестов.
      *
      * @return array

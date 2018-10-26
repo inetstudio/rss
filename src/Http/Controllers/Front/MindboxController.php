@@ -40,6 +40,19 @@ class MindboxController extends Controller implements MindboxControllerContract
     }
 
     /**
+     * Возвращаем фид продуктов.
+     *
+     * @return MindboxResponseContract
+     */
+    public function getProductsFeed(): MindboxResponseContract
+    {
+        $view = 'admin.module.rss::front.mindbox.products';
+        $data = $this->services['mindbox']->getProductsData();
+
+        return app()->makeWith(MindboxResponseContract::class, compact('view', 'data'));
+    }
+
+    /**
      * Возвращаем фид тестов.
      *
      * @return MindboxResponseContract
