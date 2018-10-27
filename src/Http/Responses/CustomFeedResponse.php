@@ -5,12 +5,12 @@ namespace InetStudio\RSS\Http\Responses;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\Support\Responsable;
-use InetStudio\RSS\Contracts\Http\Responses\MindboxResponseContract;
+use InetStudio\RSS\Contracts\Http\Responses\CustomFeedResponseContract;
 
 /**
- * Class MindboxResponse.
+ * Class CustomFeedResponse.
  */
-class MindboxResponse implements MindboxResponseContract, Responsable
+class CustomFeedResponse implements CustomFeedResponseContract, Responsable
 {
     /**
      * @var array
@@ -23,8 +23,9 @@ class MindboxResponse implements MindboxResponseContract, Responsable
     private $view;
 
     /**
-     * MindboxResponse constructor.
+     * CustomFeedResponse constructor.
      *
+     * @param string $view
      * @param array $data
      */
     public function __construct(string $view, array $data)

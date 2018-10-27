@@ -14,8 +14,6 @@ return [
             'format' => 'rss',
         ],
         'sources' => [
-            'articles' => '\InetStudio\Articles\Services\Front\ArticlesService@getFeedItems',
-            'ingredients' => '\InetStudio\Ingredients\Services\Front\IngredientsService@getFeedItems',
         ],
     ],
 

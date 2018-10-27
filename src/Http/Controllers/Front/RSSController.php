@@ -4,6 +4,7 @@ namespace InetStudio\RSS\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use InetStudio\RSS\Contracts\Http\Responses\CustomFeedResponseContract;
 use InetStudio\RSS\Contracts\Http\Controllers\Front\RSSControllerContract;
 
 /**
@@ -49,5 +50,27 @@ class RSSController extends Controller implements RSSControllerContract
         $feed = $this->services['rss']->feed($type, compact('config', 'limit', 'offset', 'url'));
 
         return $feed->render('rss');
+    }
+
+    /**
+     * Выводим кастомный фид.
+     *
+     * @param string $vendor
+     * @param string $type
+     *
+     * @return mixed
+     */
+    public function customFeed(string $vendor, string $type = ''): CustomFeedResponseContract
+    {
+        $config = config('rss.'.$vendor.'.'.$type);
+
+        if (! $config) {
+            return '';
+        }
+
+        $view = 'admin.module.rss::front.'.$vendor.'.'.$type;
+        $data = $this->services['rss']->getCustomData($vendor, $type);
+
+        return app()->makeWith(CustomFeedResponseContract::class, compact('view', 'data'));
     }
 }

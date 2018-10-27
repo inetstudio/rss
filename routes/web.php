@@ -6,8 +6,5 @@ Route::group([
     'prefix' => 'module/rss',
 ], function () {
     Route::get('feed/{type}', 'RSSControllerContract@feed')->name('front.rss.feed');
-
-    Route::get('mindbox/articles', 'MindboxControllerContract@getArticlesFeed')->name('front.rss.mindbox.articles');
-    Route::get('mindbox/products', 'MindboxControllerContract@getProductsFeed')->name('front.rss.mindbox.products');
-    Route::get('mindbox/quizzes', 'MindboxControllerContract@getQuizzesFeed')->name('front.rss.mindbox.quizzes');
+    Route::get('{vendor}/{type}', 'RSSControllerContract@customFeed')->name('front.rss.custom');
 });

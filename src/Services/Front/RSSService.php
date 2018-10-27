@@ -2,7 +2,8 @@
 
 namespace InetStudio\RSS\Services\Front;
 
-use Roumen\Feed\Feed;
+use Laravelium\Feed\Feed;
+use Illuminate\Support\Collection;
 use InetStudio\RSS\Contracts\Services\Front\RSSServiceContract;
 
 /**
@@ -24,7 +25,7 @@ class RSSService implements RSSServiceContract
         $limit = $params['limit'];
         $offset = $params['limit'];
 
-        $feed = new Feed;
+        $feed = app()->make('feed');
 
         $feed->setCache(60, 'feed_'.$type.'_'.$offset.'_'.$limit);
 
@@ -66,13 +67,33 @@ class RSSService implements RSSServiceContract
     }
 
     /**
+     * Выводим кастомный фид.
+     *
+     * @param string $vendor
+     * @param string $type
+     *
+     * @return Collection
+     */
+    public function getCustomData(string $vendor, string $type = ''): Collection
+    {
+        $config = config('rss.'.$vendor.'.'.$type);
+
+        $items = collect([]);
+        foreach ($config['sources'] as $source) {
+            $items = $items->merge($this->getItems($source));
+        }
+
+        return $items;
+    }
+
+    /**
      * Получаем материалы.
      *
      * @param $source
      *
      * @return mixed
      */
-    private function getItems($source)
+    protected function getItems($source)
     {
         $resolver = array_wrap($source);
 
@@ -90,7 +111,7 @@ class RSSService implements RSSServiceContract
      *
      * @return null|string|string[]
      */
-    private function fixBadText($text)
+    protected function fixBadText($text)
     {
         return preg_replace('/[\x00-\x1F\x7F]/', '', $text);
     }
