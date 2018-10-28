@@ -60,12 +60,12 @@ class RSSController extends Controller implements RSSControllerContract
      *
      * @return mixed
      */
-    public function customFeed(string $vendor, string $type = ''): CustomFeedResponseContract
+    public function customFeed(string $vendor, string $type = ''): ?CustomFeedResponseContract
     {
         $config = config('rss.'.$vendor.'.'.$type);
 
         if (! $config) {
-            return '';
+            return null;
         }
 
         $view = 'admin.module.rss::front.'.$vendor.'.'.$type;

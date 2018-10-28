@@ -72,9 +72,9 @@ class RSSService implements RSSServiceContract
      * @param string $vendor
      * @param string $type
      *
-     * @return Collection
+     * @return array
      */
-    public function getCustomData(string $vendor, string $type = ''): Collection
+    public function getCustomData(string $vendor, string $type = ''): array
     {
         $config = config('rss.'.$vendor.'.'.$type);
 
@@ -83,7 +83,7 @@ class RSSService implements RSSServiceContract
             $items = $items->merge($this->getItems($source));
         }
 
-        return $items;
+        return $items->toArray();
     }
 
     /**
