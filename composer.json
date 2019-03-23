@@ -10,7 +10,7 @@
       }
     ],
     "require": {
-      "laravelium/feed": "3.0.*"
+      "laravelium/feed": "^3.1.1"
     },
     "autoload": {
       "psr-4": {

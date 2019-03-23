@@ -3,17 +3,13 @@
 namespace InetStudio\RSS\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
 /**
  * Class RSSBindingsServiceProvider.
  */
-class RSSBindingsServiceProvider extends ServiceProvider
+class RSSBindingsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-    * @var  bool
-    */
-    protected $defer = true;
-
     /**
     * @var  array
     */

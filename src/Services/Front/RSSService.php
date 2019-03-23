@@ -3,6 +3,7 @@
 namespace InetStudio\RSS\Services\Front;
 
 use Laravelium\Feed\Feed;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use InetStudio\RSS\Contracts\Services\Front\RSSServiceContract;
 
@@ -95,7 +96,7 @@ class RSSService implements RSSServiceContract
      */
     protected function getItems($source)
     {
-        $resolver = array_wrap($source);
+        $resolver = Arr::wrap($source);
 
         $items = app()->call(
             array_shift($resolver), $resolver
