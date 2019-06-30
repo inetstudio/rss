@@ -1,28 +1,31 @@
 {
-    "name": "inetstudio/rss",
-    "description": "Package for rss",
-    "homepage": "https://github.com/inetstudio/rss",
-    "license": "MIT",
-    "authors": [
-      {
-        "name": "Konstantin Bukin",
-        "email": "bukin@inetstudio.ru"
-      }
-    ],
-    "require": {
-      "laravelium/feed": "^3.1.1"
-    },
-    "autoload": {
-      "psr-4": {
-        "InetStudio\\RSS\\": "src/"
-      }
-    },
-    "extra": {
-      "laravel": {
-        "providers": [
-          "InetStudio\\RSS\\Providers\\RSSBindingsServiceProvider",
-          "InetStudio\\RSS\\Providers\\RSSServiceProvider"
-        ]
-      }
+  "name": "inetstudio/rss",
+  "description": "Package for rss",
+  "homepage": "https://github.com/inetstudio/rss",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Konstantin Bukin",
+      "email": "bukin@inetstudio.ru"
     }
+  ],
+  "require": {
+    "inetstudio/admin-panel": "1.8.*",
+    "laravelium/feed": "^3.1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "InetStudio\\RSS\\": "package/src",
+      "InetStudio\\RSS\\Feeds\\": "entities/feeds/src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "InetStudio\\RSS\\Providers\\ServiceProvider",
+        "InetStudio\\RSS\\Feeds\\Providers\\BindingsServiceProvider",
+        "InetStudio\\RSS\\Feeds\\Providers\\ServiceProvider"
+      ]
+    }
+  }
 }
