@@ -11,6 +11,18 @@ use InetStudio\RSS\Feeds\Contracts\Services\Front\ItemsServiceContract;
  */
 class ItemsService implements ItemsServiceContract
 {
+    protected $feedService;
+
+    /**
+     * ItemsService constructor.
+     *
+     * @param  Feed  $feedService
+     */
+    public function __construct(Feed $feedService)
+    {
+        $this->feedService = $feedService;
+    }
+
     /**
      * Формируем фид.
      *
@@ -18,8 +30,6 @@ class ItemsService implements ItemsServiceContract
      * @param  array  $params
      *
      * @return mixed
-     *
-     * @throws BindingResolutionException
      */
     public function feed(string $type, array $params)
     {
@@ -27,7 +37,7 @@ class ItemsService implements ItemsServiceContract
         $limit = $params['limit'];
         $offset = $params['limit'];
 
-        $feed = app()->make('feed');
+        $feed = $this->feedService;
 
         $feed->setCache(60, 'feed_'.$type.'_'.$offset.'_'.$limit);
 

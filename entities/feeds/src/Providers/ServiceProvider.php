@@ -11,8 +11,6 @@ class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Загрузка сервиса.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -59,8 +57,6 @@ class ServiceProvider extends BaseServiceProvider
 
     /**
      * Регистрация представлений.
-     *
-     * @return void
      */
     protected function registerViews(): void
     {
