@@ -2,6 +2,9 @@
 
 namespace InetStudio\RSS\Feeds\Providers;
 
+use Illuminate\Contracts\Container\Container;
+use InetStudio\RSS\Feeds\Services\Front\Feed;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider as BaseServiceProvier;
 
@@ -20,12 +23,42 @@ class BindingsServiceProvider extends BaseServiceProvier implements DeferrablePr
     ];
 
     /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind('feed', function (Container $app) {
+            $config = config('feed');
+
+            return new Feed(
+                $config,
+                $app['Illuminate\Cache\Repository'],
+                $app['config'],
+                $app['files'],
+                $app[ResponseFactory::class],
+                $app['view']
+            );
+        });
+
+        $this->app->alias('feed', Feed::class);
+    }
+
+
+    /**
      * Получить сервисы от провайдера.
      *
      * @return array
      */
     public function provides()
     {
-        return array_keys($this->bindings);
+        return array_merge(
+            array_keys($this->bindings),
+            [
+                'feed',
+                Feed::class,
+            ]
+        );
     }
 }

@@ -36,6 +36,7 @@ class ItemsController extends Controller implements ItemsControllerContract
         $url = $request->fullUrl();
 
         $feed = $feedsService->feed($type, compact('config', 'limit', 'offset', 'url'));
+        $feed->customView = 'admin.module.rss.feeds::front.rss';
 
         return $feed->render('rss');
     }
