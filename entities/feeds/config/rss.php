@@ -12,8 +12,8 @@ return [
             'view' => 'admin.module.rss.feeds::front.rss.yandex',
             'type' => 'text/xml',
             'format' => 'rss',
-        ],
-        'sources' => [
+            'sources' => [
+            ],
         ],
     ],
 

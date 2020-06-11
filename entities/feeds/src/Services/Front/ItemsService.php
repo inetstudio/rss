@@ -33,7 +33,7 @@ class ItemsService implements ItemsServiceContract
 
         if (! $feed->isCached()) {
             $items = [];
-            foreach ($config['sources'] as $source) {
+            foreach ($config['feed']['sources'] as $source) {
                 $items = array_merge($items, $this->getItems($source));
             }
 
@@ -63,7 +63,7 @@ class ItemsService implements ItemsServiceContract
         }
 
         if (isset($config['feed']['view'])) {
-            $feed->setView($config['feed']['view']);
+            $feed->setCustomView($config['feed']['view']);
         }
 
         if (isset($config['feed']['type'])) {
